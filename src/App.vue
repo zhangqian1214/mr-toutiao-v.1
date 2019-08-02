@@ -2,7 +2,8 @@
 
 <template>
   <div id="app">
-    <el-button type="danger">危险按钮</el-button>
+    <!-- 一级路由的出口，一级路由对应组件渲染的位置，一级路由渲染到根页面 -->
+    <router-view></router-view>
   </div>
 </template>
 

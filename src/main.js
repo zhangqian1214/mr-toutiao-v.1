@@ -6,13 +6,15 @@ import Vue from 'vue' // 导入的vue包
 import App from './App.vue' // 导入的APP这个根组件
 
 // import router from './router/index'//这两条功能一样
-import router from '@/router'// @是一个路径别名，是src路径（绝对路径），只对vue-cli项目内有效，
+import router from '@/router'// @是一个路径别名，是src路径（绝对路径），只对vue-cli项目内有效，？
 // index名字的文件可以不写（index.js index.vue index.json），会默认找文件夹内index文件
+
+// 导入公共样式
+import '@/styles/index.less'// 样式和less没有返回值，直接写路径就可以
 
 import ElementUI from 'element-ui' // 这两句是引入element-ui组件（注意样式文件另外引入）
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)// 调用element-ui组件
-
 // 是否开启产品级别提示：开发阶段不开启 ，产品阶段开启，开启后控制台会产生开发日志，越详细越好？
 Vue.config.productionTip = false
 
