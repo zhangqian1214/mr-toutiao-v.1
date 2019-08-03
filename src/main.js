@@ -12,11 +12,15 @@ import router from '@/router'// @是一个路径别名，是src路径（绝对�
 // 导入公共样式
 import '@/styles/index.less'// 样式和less没有返回值，直接写路径就可以
 
+import axios from 'axios'// 导入ajax工具包
+
 import ElementUI from 'element-ui' // 这两句是引入element-ui组件（注意样式文件另外引入）
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)// 调用element-ui组件
 // 是否开启产品级别提示：开发阶段不开启 ，产品阶段开启，开启后控制台会产生开发日志，越详细越好？
 Vue.config.productionTip = false
+
+Vue.prototype.$http = axios// axios通过指向原型对象，挂载在vue实例上，成为vue的公共方法，方便组件内使用
 
 new Vue({
   router, // 如果页面url后面有‘#/’,说明加载成功
