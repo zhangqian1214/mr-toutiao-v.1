@@ -8,6 +8,7 @@ import Home from '@/views/home'// 导入主页面 单页面组件
 import Welcome from '@/views/welcome'// 导入主页面的主板块 单页面组件（二级路由）
 import Article from '@/views/article'// 内容管理二级组件
 import NotFound from '@/views/404'// 404组件,在没有路由的时候显示
+import store from '@/store' // 封装操作sessionStorage的函数,获取用户信息的模块
 
 Vue.use(VueRouter) // 调用vue-router？
 
@@ -44,6 +45,18 @@ const router = new VueRouter({ // new vuerouter实例
       component: NotFound
     }
   ]
+})
+// 导航守卫概念：vue官网，vue-router下有详解；beforeEach加全局前置导航守卫（用来检测你有没有登录权限）
+router.beforeEach((to, from, next) => { // to目标路由 from来源路由 next放行路由
+  // // 如果是登录路由，就放行
+  // if (to.path === '/login') return next()
+  // // 获取用户信息，如果没有token用户信息对象，就拦截去登录页面
+  // if (!store.getUser().token) return next('/login')
+  // // 其它情况就放行
+  // next()
+  // 以上高级写法：如果不去登录页面 同时 没有登录信息 就去登录 ，否则就让它想去哪儿去哪儿
+  if (to.path !== '/login' && !store.getUser().token) return next('/login')
+  next()
 })
 
 export default router // 路由拆分，导出router对象，让其它文件可以导入使用
