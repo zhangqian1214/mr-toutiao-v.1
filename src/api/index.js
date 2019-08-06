@@ -3,7 +3,7 @@
 import axios from 'axios' // 导入axios包
 import store from '@/store' // 导入封装的获取用户信息的模块
 
-// 进行ajax配置，基准路径
+// 进行ajax配置，基准路径 （baseURL属性注意大写）
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
 // 请求头字段
 // axios.defaults.headers = {

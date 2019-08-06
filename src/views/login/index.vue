@@ -58,7 +58,7 @@ export default {
           // 校验规则可能有多套，所以用数组
           // required必填校验，message校验错误提示，trigger在失去焦点的时候触发校验
           { required: true, message: '请输入手机号', trigger: 'blur' },
-          { validator: checkMobile, trigger: 'blur' } // validator校验函数，在失去焦点时触发执行
+          { validator: checkMobile, trigger: 'change' } // validator校验函数，在失去焦点时触发执行
         ],
         code: [
           { required: true, message: '请输入验证码', trigger: 'blur' },

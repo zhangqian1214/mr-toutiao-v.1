@@ -61,15 +61,21 @@
         <span class="text">不一定每日头条传媒有限公司</span>
 
         <!-- el-dropdown下拉菜单 -->
-        <el-dropdown class="my-dropdown">
+        <el-dropdown class="my-dropdown" @command="clickMenu">
+          <!-- clickMenu方法不带括号的意思是，要使用command事件的默认参数，让事情默认去调方法，给方法传参 -->
           <span class="el-dropdown-link">
-            <img src="../../assets/images/avatar.jpg" alt />
-            小甜甜
+            <!-- 头像图片信息要动态绑定 -->
+            <img :src="photo" alt />
+            {{name}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-s-tools">个人设置</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-unlock">退出登录</el-dropdown-item>
+            <!-- native绑定原生事件 -->
+            <!-- <el-dropdown-item icon="el-icon-s-tools" v-on:click.native="setting()">个人设置</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-unlock" v-on:click.native="logout()">退出登录</el-dropdown-item> -->
+            <!-- 这是实现个人设置和登录功能的第二种方法，查E-ui文档，并不好理解 -->
+            <el-dropdown-item icon="el-icon-s-tools" command="setting">个人设置</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-unlock" command="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -82,16 +88,40 @@
 </template>
 
 <script>
+import store from '@/store' // 引入获取用户信息的模块
+
 export default {
   data () {
     return {
-      hide: false // 这个数据的值是侧边栏收起与否的状态控制
+      hide: false, // 这个数据的值是侧边栏收起与否的状态控制
+      name: '', // 设一个空值（用来赋值）
+      photo: ''
     }
+  },
+  created () { // 钩子函数，页面创建时触发，获取用户信息
+    const user = store.getUser()// 调用模块中的方法获取用户信息
+    this.name = user.name // 获取用户名字（赋值）
+    this.photo = user.photo // 用户头像
   },
   methods: {
     toggleMenu () {
       // 这个函数实现切换侧边栏的收起和展开
       this.hide = !this.hide // 这句写的妙，像一个开关，触发一次值就取反一次
+    },
+    // 解决方法：事件绑定在组件解析后的DOM上，使用事件修饰符prevent阻止默认行为 native绑定原生事件
+    setting () { // 这么写有问题（无效），click是原生dom的事件，绑定在组件‘<el-dropdown-item>’上不会起效
+      this.$router.push('/setting')
+    },
+    logout () {
+      store.clearUser()// 调用store模块里的方法删除用户信息
+      // this.$router.push('/login')
+      this.$router.push({ name: 'login' })// 删除后跳转登录页面，路由有名字，可以用名字代替路径跳转，try try see
+    },
+    // 如果这个事件有默认传参，且想接收默认参数，调用的时候就不加括号
+    clickMenu (menuType) {
+      // 如果menuType值是===setting  就调用this.setting()
+      // 如果menuType值是===login  就调用this.login()
+      this[menuType]()// ？
     }
   }
 }
