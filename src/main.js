@@ -16,6 +16,10 @@ import axios from '@/api' // 导入ajax工具包(二手自己封装配置过的)
 
 import ElementUI from 'element-ui' // 这两句是引入element-ui组件（注意样式文件另外引入）
 import 'element-ui/lib/theme-chalk/index.css'
+
+import myPlugin from '@/components'// 导入全局插件
+Vue.use(myPlugin) // 引用插件
+
 Vue.use(ElementUI)// 调用element-ui组件
 // 是否开启产品级别提示：开发阶段不开启 ，产品阶段开启，开启后控制台会产生开发日志，越详细越好？
 Vue.config.productionTip = false
