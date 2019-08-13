@@ -18,17 +18,24 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="频道：">
+
+          <!-- 这里v-model内部会自动执行(这些是v-model的底层实现原理)
+          :value="reqParams.channel_id"
+          @input="reqParams.channel_id=数据（$event）"-->
+          <my-channel v-model="reqParams.channel_id"></my-channel>
+
+          <!-- 频道内容单独拆分包装一个组件 -->
           <!-- clearable用来清除选择器的选择条件 -->
-          <el-select clearable v-model="reqParams.channel_id" placeholder="请选择">
+          <!-- <el-select clearable v-model="reqParams.channel_id" placeholder="请选择">
             <el-option
               v-for="item in channelOptions"
               :key="item.id"
               :label="item.name"
               :value="item.id"
             >
-              <!-- :key作唯一标识；:label下拉框说明文字；:value文字对应的值（id）;它们的具体字段值后台给（查接口） -->
+              <-- :key作唯一标识；:label下拉框说明文字；:value文字对应的值（id）;它们的具体字段值后台给（查接口） --
             </el-option>
-          </el-select>
+          </el-select>-->
         </el-form-item>
         <el-form-item label="日期：">
           <!-- 这里有个问题 v-model双向绑定的是两个数据（开始时间，结束时间），怎么同时绑定两个数据？ -->
@@ -126,8 +133,8 @@ export default {
         page: 1, // 当前默认页数
         per_page: 20 // 一页多少条数据,组件内动态绑定，这里控制页数(这里说了算)
       },
-      // 频道下拉选项数据
-      channelOptions: [],
+      // // 频道下拉选项数据
+      // channelOptions: [],
       // 日期数据（双向绑定的数据以数组形式获取）
       dateArr: [],
       // 文章列表数据，服务器拿的
@@ -135,20 +142,20 @@ export default {
       total: 0 // 总条数,使用数据前先申明（一个空壳，获取的数据往这里赋值）
     }
   },
-  // 计算属性computed：当你需要依赖data中的数据得到一个新数据，当data中的数据改变，计算属性也会改变（数据改变，触发计算，重新算结构）
-  // 侦听器watch：当需要监听某个data数据改变，改变后做性能开销较大操作（异步操作），也可以做其它事情
-  watch: {
-    // 为什么是字符串？
-    'reqParams.channel_id': function (newVal, olVal) {
-      // console.log(newVal)
-      // 如果选择器没有选项数据，就为null（不然是空（字符串）会报错）
-      if (newVal === '') this.reqParams.channel_id = null
-    }
-  },
+  // // 计算属性computed：当你需要依赖data中的数据得到一个新数据，当data中的数据改变，计算属性也会改变（数据改变，触发计算，重新算结构）
+  // // 侦听器watch：当需要监听某个data数据改变，改变后做性能开销较大操作（异步操作），也可以做其它事情
+  // watch: {
+  //   // 为什么是字符串？
+  //   'reqParams.channel_id': function (newVal, olVal) {
+  //     // console.log(newVal)
+  //     // 如果选择器没有选项数据，就为null（不然是空（字符串）会报错）
+  //     if (newVal === '') this.reqParams.channel_id = null
+  //   }
+  // },
   created () {
     // 这个钩子函数在页面刚渲染的时候触发
     // 获取下拉频道选项数据
-    this.getChannelOptions()
+    // this.getChannelOptions()
     // 获取文章列表数据q
     this.getArticles()
   },
@@ -197,13 +204,13 @@ export default {
       this.reqParams.page = newPage
       this.getArticles()
     },
-    async getChannelOptions () {
-      // ？async、await
-      const {
-        data: { data }
-      } = await this.$http.get('channels')
-      this.channelOptions = data.channels
-    },
+    // async getChannelOptions () {
+    //   // ？async、await
+    //   const {
+    //     data: { data }
+    //   } = await this.$http.get('channels')
+    //   this.channelOptions = data.channels
+    // },
     async getArticles () {
       const {
         data: { data }

@@ -89,6 +89,7 @@
 
 <script>
 import store from '@/store' // 引入获取用户信息的模块
+import eventBus from '@/components/eventBus'
 
 export default {
   data () {
@@ -99,6 +100,10 @@ export default {
     }
   },
   created () { // 钩子函数，页面创建时触发，获取用户信息
+    // 绑定事件
+    eventBus.$on('updatePhoto', (data) => {
+      this.photo = data
+    })
     const user = store.getUser()// 调用模块中的方法获取用户信息
     this.name = user.name // 获取用户名字（赋值）
     this.photo = user.photo // 用户头像

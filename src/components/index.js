@@ -5,6 +5,11 @@
 
 import MyBread from '@/components/my-bread'// 引入要注册成全局组件的组件
 import MyTest from '@/components/my-test'
+import MyChannel from '@/components/my-channel'
+import MyImage from '@/components/my-image'
+
+import COMA from '@/components/com-a' // 非父子组件 测试学习
+import COMB from '@/components/com-b'
 
 export default {
   install (Vue) {
@@ -12,5 +17,11 @@ export default {
     // Vue全局注册组件即可
     Vue.component(MyBread.name, MyBread) // （用起来的组件名，组件）
     Vue.component(MyTest.name, MyTest)
+    Vue.component(MyChannel.name, MyChannel)
+    Vue.component(MyImage.name, MyImage)
+
+    // 非父子 组件 测试学习
+    Vue.component(COMA.name, COMA)
+    Vue.component(COMB.name, COMB)
   }
 }

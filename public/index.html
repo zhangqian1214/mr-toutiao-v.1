@@ -20,3 +20,20 @@
 </body>
 
 </html>
+
+<!--
+***完成项目的思想***
+技术准备：基于vue开发、发ajax用axios第三方工具包、vue-cli脚手架工具创建初始化目录、写html页面用element-UI、版本控制用git
+
+大概样子：public文件夹内index.html是唯一页面（当前所在），index.html中<div id="app"></div>是被vue选中的页面内容显示区域；
+main.js是入口文件，vue实例就new在这个文件夹里，需要的依赖模块都往这里引（js、包、css、各种资源），创建一个根vue实例（其它文件用到的引入vue实例都是它）；
+App.vue根组件,一级路由出口，其实所有拆分的路由组件都在这个文件的‘<router-view>’容器标签里渲染显现;
+router文件夹，初始化(new)路由对象router，然后导出供main.js入口文件导入使用,路由统一写这里面
+
+// App.vue 根组件   一级路由出口，其实所有拆分的路由组件都在这个文件的‘<router-view>’容器标签里渲染显现
+// index.js 根路由  有一个路由实例，所有路由地址都统一写在这里面
+// main.js 入口文件  vue实例在这里，核心对象，各种包、模块、工具都往这里导
+// index.vue 单页面组件   一个个具体的要表现的页面内容,会被导入到index.js文件，写出路由
+
+index.vue 单页面组件=====>index.js 根路由=====>main.js 入口文件=====>App.vue 根组件=====>index.html
+-->

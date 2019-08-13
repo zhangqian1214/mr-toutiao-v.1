@@ -9,6 +9,11 @@ import Welcome from '@/views/welcome'// 导入主页面的主板块 单页面组
 import Article from '@/views/article'// 内容管理二级组件
 import NotFound from '@/views/404'// 404组件,在没有路由的时候显示
 import store from '@/store' // 封装操作sessionStorage的函数,获取用户信息的模块
+import Image from '@/views/image' // 管理素材组件
+import Publish from '@/views/publish' // 发布文章组件
+import Comment from '@/views/comment' // 评论管理组件
+import Setting from '@/views/setting' // 个人设置组件
+import Fans from '@/views/fans' // 粉丝管理组件
 
 Vue.use(VueRouter) // 调用vue-router？
 
@@ -36,7 +41,12 @@ const router = new VueRouter({ // new vuerouter实例
       children: [ // children：（孩子们）二级路由
         // 不用写重定向，默认路径是主页面路由时，默认显示二级路由组件
         { path: '/', name: 'welcome', component: Welcome },
-        { path: '/article', name: 'article', component: Article }
+        { path: '/article', name: 'article', component: Article },
+        { path: '/image', name: 'image', component: Image },
+        { path: '/publish', name: 'publish', component: Publish },
+        { path: '/comment', name: 'comment', component: Comment },
+        { path: '/setting', name: 'setting', component: Setting },
+        { path: '/fans', name: 'fans', component: Fans }
       ]
     },
     {
